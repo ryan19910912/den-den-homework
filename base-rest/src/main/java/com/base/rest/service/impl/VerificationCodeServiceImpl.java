@@ -48,6 +48,11 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
                 content = String.format("您的登入驗證碼: [%s]", randomVerificationCode);
                 break;
             case REGISTER:
+
+                if (Objects.nonNull(memberRepo.findMemberByEmail(email))) {
+                    throw new ApiException("該信箱已被註冊");
+                }
+
                 subject = "Ryan DenDen 註冊驗證碼";
                 content = String.format("您的註冊驗證碼: [%s]", randomVerificationCode);
                 break;
