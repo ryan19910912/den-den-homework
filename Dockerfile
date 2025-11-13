@@ -4,7 +4,7 @@
 FROM maven:3.9.5-eclipse-temurin-21 AS builder
 
 # 設定工作目錄
-WORKDIR /app
+WORKDIR /den-den-homework
 
 # 複製 Root pom.xml
 COPY pom.xml .
@@ -17,7 +17,7 @@ RUN mvn dependency:go-offline
 COPY . .
 
 # 執行最終構建，生成所有子模組的 JAR/WAR 檔案
-# JAR 檔案會產生在 /app/base-rest/target/ 目錄下
+# JAR 檔案會產生在 /den-den-homework/base-rest/target/ 目錄下
 RUN mvn clean package -DskipTests
 
 # -----------------------------------------------------------
@@ -32,6 +32,6 @@ ARG REST_JAR_NAME=base-rest-1.0.jar
 # 最終 JAR 檔案在容器內的路徑
 ARG JAR_FILE=/den-den-homework/base-rest/target/${REST_JAR_NAME}
 
-COPY --from=builder ${JAR_FILE} app.jar
+COPY --from=builder ${JAR_FILE} den-den-homework.jar
 
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+ENTRYPOINT ["java", "-jar", "/den-den-homework.jar"]
