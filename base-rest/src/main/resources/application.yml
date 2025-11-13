@@ -1,0 +1,49 @@
+server:
+  port: 8080
+
+spring:
+  # H2 資料庫設定
+  datasource:
+    url: jdbc:h2:mem:memberdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: sa
+    password: ''
+  h2:
+    console:
+      enabled: true
+      path: /h2-console #  http://localhost:8080/h2-console
+  sql:
+    init: # 初始化sql
+      enabled: true
+      mode: always
+  jackson:
+    #設定時區：確保時間數字不變，使用本地時區 (GMT+8/Asia/Taipei)
+    time-zone: Asia/Taipei
+    # 設定日期格式：使用自定義的 Pattern 覆蓋預設的 ISO 8601 格式
+    date-format: yyyy-MM-dd HH:mm:ss
+    # 確保日期被序列化為字串，而不是長整數 (Timestamp)
+    serialization:
+      write-dates-as-timestamps: false
+
+  # MyBatis-Plus 設定
+  mybatis-plus:
+    type-aliases-package: com.base.common.entity
+
+  mail:
+    host: smtp.gmail.com        # SMTP 伺服器主機
+    port: 587                   # Gmail 推薦的 TLS 端口
+    username: ryanxu0912@gmail.com
+    password: ykrn jntr fuow tjuc
+    default-encoding: UTF-8     # 郵件編碼
+    properties:
+      mail:
+        smtp:
+          auth: true            # 啟用 SMTP 驗證
+          starttls:
+            enable: true        # 啟用 STARTTLS (TLS 加密)
+
+# JWT 設定
+jwt:
+  secret: Y29tcGxleHNlY3JldGtleWZvcnNwcmluZ2Jvb3Qtand0b2tlbnN5c3RlbQ==
+  expiration: 86400000 # 過期時間 (毫秒) 1天
+  issuer: DenDenAuthSystem
