@@ -30,7 +30,7 @@ EXPOSE 8080
 # 假設您的 base-rest 輸出的 JAR 檔名為 base-rest-1.0.jar
 ARG REST_JAR_NAME=base-rest-1.0.jar
 # 最終 JAR 檔案在容器內的路徑
-ARG JAR_FILE=/app/base-rest/target/${REST_JAR_NAME}
+ARG JAR_FILE=/den-den-homework/base-rest/target/${REST_JAR_NAME}
 
 COPY --from=builder ${JAR_FILE} app.jar
 
